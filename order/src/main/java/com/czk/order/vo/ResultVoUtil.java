@@ -1,4 +1,4 @@
-package com.czk.order.VO;
+package com.czk.order.vo;
 
 /**
  * FileName: ResultVoUtil

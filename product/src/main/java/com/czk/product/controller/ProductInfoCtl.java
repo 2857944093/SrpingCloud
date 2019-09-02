@@ -1,8 +1,9 @@
 package com.czk.product.controller;
 
-import com.czk.product.VO.ProductInfoVO;
-import com.czk.product.VO.ProductVO;
-import com.czk.product.VO.ResultVO;
+import com.czk.product.dto.CartDTO;
+import com.czk.product.vo.ProductInfoVO;
+import com.czk.product.vo.ProductVO;
+import com.czk.product.vo.ResultVO;
 import com.czk.product.dataobject.ProductCategory;
 import com.czk.product.dataobject.ProductInfo;
 import com.czk.product.service.ProductCategoryService;
@@ -10,8 +11,9 @@ import com.czk.product.service.ProductInfoService;
 import com.czk.product.utils.ResultVoUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -54,6 +56,21 @@ public class ProductInfoCtl {
         }
 
         return ResultVoUtil.success(productVOS);
+    }
+
+    /**
+     * 获取商品信息（给订单服务使用）
+     */
+    @PostMapping("/listForOrder")
+    public List<ProductInfo> listForOrder(@RequestBody List<String> productIdList){
+        return productInfoService.findList(productIdList);
+    }
+    /**
+     * 扣库存（给订单服务使用）
+     */
+    @PostMapping("/decreaseStock")
+    public void decreaseStock(@RequestBody List<CartDTO> cartDTOList){
+        productInfoService.decreaseStock(cartDTOList);
     }
 
 }

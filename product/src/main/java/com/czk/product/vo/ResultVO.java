@@ -1,4 +1,4 @@
-package com.czk.product.VO;
+package com.czk.product.vo;
 
 import lombok.Data;
 

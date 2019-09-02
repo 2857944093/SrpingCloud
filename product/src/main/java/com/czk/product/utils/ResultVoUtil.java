@@ -1,6 +1,6 @@
 package com.czk.product.utils;
 
-import com.czk.product.VO.ResultVO;
+import com.czk.product.vo.ResultVO;
 
 /**
  * FileName: ResultVoUtil

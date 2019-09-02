@@ -1,7 +1,7 @@
 package com.czk.order.controller;
 
-import com.czk.order.VO.ResultVo;
-import com.czk.order.VO.ResultVoUtil;
+import com.czk.order.vo.ResultVo;
+import com.czk.order.vo.ResultVoUtil;
 import com.czk.order.converter.OrderFormToOrderDTO;
 import com.czk.order.dto.OrderDTO;
 import com.czk.order.enums.ResultEnum;

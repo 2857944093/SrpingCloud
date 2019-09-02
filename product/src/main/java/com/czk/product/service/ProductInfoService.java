@@ -1,5 +1,6 @@
 package com.czk.product.service;
 
+import com.czk.product.dto.CartDTO;
 import com.czk.product.dataobject.ProductInfo;
 
 import java.util.List;
@@ -16,4 +17,17 @@ public interface ProductInfoService {
     List<ProductInfo> fingByProductInfoStatus(Integer status);
 
     List<ProductInfo> findAll();
+
+    /**
+     * 查询商品列表
+     * @param productIdList
+     * @return
+     */
+    List<ProductInfo> findList(List<String> productIdList);
+
+    /**
+     * 扣库存
+     * @param cartDTOList
+     */
+    void decreaseStock(List<CartDTO> cartDTOList);
 }
