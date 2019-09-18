@@ -3,7 +3,7 @@ eureka:
     hostname: eureka1
   client:
     service-url:
-      defaultZone: http://eureka2:8761/eureka/
+      defaultZone: http://eureka:8762/eureka/
     register-with-eureka: true
     fetch-registry: true
   server:

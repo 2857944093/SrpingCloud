@@ -1,8 +1,9 @@
 package com.czk.order.server.controller;
 
-import com.czk.order.server.client.ProductClient;
-import com.czk.order.server.dataobject.ProductInfo;
-import com.czk.order.server.dto.CartDTO;
+
+import com.czk.product.client.ProductClient;
+import com.czk.product.common.DecreaseStockInput;
+import com.czk.product.common.ProductInfoOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -43,21 +44,22 @@ public class ClientController {
         //String response = restTemplate.getForObject("http://PRODUCT/msg",String.class);
 
         //Fegin
-        String response = productClient.productMsg();
+        /*String response = productClient.productMsg();
         log.info("response={} ",response);
-        return response;
+        return response;*/
+        return "ok";
     }
 
     @GetMapping("/getProductList")
     public String getProductList(){
-        List<ProductInfo> productInfoList = productClient.listForOrder(Arrays.asList("1"));
+        List<ProductInfoOutput> productInfoList = productClient.listForOrder(Arrays.asList("1"));
         log.info("response={}", productInfoList);
         return "ok";
     }
 
     @GetMapping("/productDecreaseStock")
     public String productDecreaseStock(){
-        productClient.decreaseStock(Arrays.asList(new CartDTO("1",3)));
+        productClient.decreaseStock(Arrays.asList(new DecreaseStockInput("1",3)));
         log.info("response={}", "ok");
         return "ok";
     }

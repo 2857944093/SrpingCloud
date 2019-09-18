@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: order
+  cloud:
+    config:
+      discovery:
+        service-id: CONFIG
+        enabled: true
+      profile: test
+  rabbitmq:
+    host: 106.15.180.75
+    port: 15762
+    username: admin
+    password: admin
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8762/eureka/

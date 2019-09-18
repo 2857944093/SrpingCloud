@@ -1,7 +1,7 @@
 package com.czk.order.server.repository;
 
-import com.czk.order.OrderApplication;
-import com.czk.order.OrderApplicationTests;
+
+import com.czk.order.server.OrderApplicationTests;
 import com.czk.order.server.dataobject.OrderDetail;
 import com.czk.order.server.dataobject.OrderMaster;
 import org.junit.Assert;

@@ -1,17 +1,18 @@
 package com.czk.order.server.service.impl;
 
-import com.czk.order.repository.OrderDetailRepository;
-import com.czk.order.repository.OrderMasterRepository;
-import com.czk.order.server.client.ProductClient;
+import com.czk.order.server.repository.OrderDetailRepository;
+import com.czk.order.server.repository.OrderMasterRepository;
+
 import com.czk.order.server.dataobject.OrderDetail;
 import com.czk.order.server.dataobject.OrderMaster;
-import com.czk.order.server.dataobject.ProductInfo;
-import com.czk.order.server.dto.CartDTO;
 import com.czk.order.server.dto.OrderDTO;
 import com.czk.order.server.enums.OrderStatusEnum;
 import com.czk.order.server.enums.PayStatusEnum;
 import com.czk.order.server.utils.KeyUtil;
-import com.czk.order.service.OrderService;
+import com.czk.order.server.service.OrderService;
+import com.czk.product.client.ProductClient;
+import com.czk.product.common.DecreaseStockInput;
+import com.czk.product.common.ProductInfoOutput;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,12 +50,12 @@ public class OrderSerivceImpl implements OrderService {
         List<String> productIdList = orderDTO.getOrderDetailList().stream()
                 .map(OrderDetail::getProductId)
                 .collect(Collectors.toList());
-        List<ProductInfo> productInfoList = productClient.listForOrder(Arrays.asList("1"));
+        List<ProductInfoOutput> productInfoList = productClient.listForOrder(Arrays.asList("1"));
 
         //计算总价
         BigDecimal orderAmout = new BigDecimal(BigInteger.ZERO);
         for (OrderDetail orderDetail : orderDTO.getOrderDetailList()){
-            for (ProductInfo productInfo : productInfoList){
+            for (ProductInfoOutput productInfo : productInfoList){
                 if (productInfo.getProductId().equals(orderDetail.getProductId())){
                     //单价*数量
                     orderAmout = productInfo.getProductPrice()
@@ -71,8 +72,8 @@ public class OrderSerivceImpl implements OrderService {
 
         }
         //扣库存（调用商品服务）
-        List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream()
-                .map(e-> new CartDTO(e.getProductId(),e.getProductQuantity()))
+        List<DecreaseStockInput> cartDTOList = orderDTO.getOrderDetailList().stream()
+                .map(e-> new DecreaseStockInput(e.getProductId(),e.getProductQuantity()))
                 .collect(Collectors.toList());
         productClient.decreaseStock(cartDTOList);
 
