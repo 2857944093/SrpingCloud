@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: product
+  cloud:
+    config:
+      discovery:
+        service-id: CONFIG
+        enabled: true
+      profile: dev
+    stream:
+      bindings:
+        input:
+          destination: test
+          content-type: application/json
+        output:
+          destination: test
+          content-type: application/json
+  rabbitmq:
+    host: 106.15.180.75
+    port: 5672
+    Virtual Host: my_vhost
+    username: admin
+    password: admin
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
